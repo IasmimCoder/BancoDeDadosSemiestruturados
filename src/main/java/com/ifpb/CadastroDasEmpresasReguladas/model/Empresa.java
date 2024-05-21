@@ -3,7 +3,9 @@ package com.ifpb.CadastroDasEmpresasReguladas.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -14,32 +16,37 @@ import java.util.Objects;
 @Table(name = "tb_empresa")
 public class Empresa {
 
-
+    @Id
     private String entcgc; //chave primaria
-    private String entcodigofip; //chave primaria
 
-    // @ManyToOne
-    // @JoinColumn(name = "mercodigo_id")
+    @Column(nullable = false, unique = true)
+    private String entcodigofip; 
+
+    @ManyToOne //muitas empresas para um mercodigo
+    @JoinColumn(name = "mercodigo_id", nullable = false)
     private DominioDeMercado mercodigo;
     
     // @OneToOne(cascade = CascadeType.ALL)
     // @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco enderEmpreseco; 
+    // private Endereco endereco; 
 
+    @Column(nullable = false, unique = true)
     private String entnome;
+
+    @Column(nullable = false)
     private LocalDateTime dataautorizacao;
 
     public Empresa() {
     }
 
-    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco enderEmpreseco) {
-        this.mercodigo = mercodigo;
-        this.entcodigofip = entcodigofip;
-        this.entnome = entnome;
-        this.entcgc = entcgc;
-        this.dataautorizacao = dataautorizacao;
-        this.enderEmpreseco = enderEmpreseco;
-    }
+    // public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco enderEmpreseco) {
+    //     this.mercodigo = mercodigo;
+    //     this.entcodigofip = entcodigofip;
+    //     this.entnome = entnome;
+    //     this.entcgc = entcgc;
+    //     this.dataautorizacao = dataautorizacao;
+    //     // this.endereco = enderEmpreseco;
+    // }
 
     public DominioDeMercado getMercodigo() {
         return this.mercodigo;
@@ -81,24 +88,24 @@ public class Empresa {
         this.dataautorizacao = dataautorizacao;
     }
 
-    public Endereco getEnderEmpreseco() {
-        return this.enderEmpreseco;
-    }
+    // public Endereco getEndereco() {
+    //     return this.endereco;
+    // }
 
-    public void setEnderEmpreseco(Endereco enderEmpreseco) {
-        this.enderEmpreseco = enderEmpreseco;
-    }
+    // public void setEndereco(Endereco enderEmpreseco) {
+    //     this.endereco = enderEmpreseco;
+    // }
 
-    @Override
-    public String toString() {
-        return "{" +
-            " mercodigo='" + getMercodigo() + "'" +
-            ", entcodigofip='" + getEntcodigofip() + "'" +
-            ", entnome='" + getEntnome() + "'" +
-            ", entcgc='" + getEntcgc() + "'" +
-            ", dataautorizacao='" + getDataautorizacao() + "'" +
-            ", enderEmpreseco='" + getEnderEmpreseco() + "'" +
-            "}";
-    }
+    // @Override
+    // public String toString() {
+    //     return "{" +
+    //         " mercodigo='" + getMercodigo() + "'" +
+    //         ", entcodigofip='" + getEntcodigofip() + "'" +
+    //         ", entnome='" + getEntnome() + "'" +
+    //         ", entcgc='" + getEntcgc() + "'" +
+    //         ", dataautorizacao='" + getDataautorizacao() + "'" +
+    //         ", enderEmpreseco='" + getEndereco() + "'" +
+    //         "}";
+    // }
     
 }

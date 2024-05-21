@@ -2,11 +2,14 @@ package com.ifpb.CadastroDasEmpresasReguladas.model;
 
 import java.util.UUID;
 
-import jakarta.annotation.Generated;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,10 +19,22 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
+
+    @Column(unique = true)
     private String endereco;
+
+    @Column
     private String bairro;
+
+    @Column
     private String cidade;
+
+    @Column
     private String cep;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "empresa_id", referencedColumnName = "entcgc")
+    private Empresa empresa;
 
     public Endereco() {
     }
