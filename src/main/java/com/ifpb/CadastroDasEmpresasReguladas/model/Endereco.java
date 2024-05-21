@@ -1,8 +1,21 @@
 package com.ifpb.CadastroDasEmpresasReguladas.model;
-import java.util.Objects;
 
+import java.util.UUID;
+
+import jakarta.annotation.Generated;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_endereco")
 public class Endereco {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private UUID id;
     private String endereco;
     private String bairro;
     private String cidade;
