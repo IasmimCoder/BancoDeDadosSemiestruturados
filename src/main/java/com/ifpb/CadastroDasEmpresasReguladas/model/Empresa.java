@@ -26,9 +26,9 @@ public class Empresa {
     @JoinColumn(name = "mercodigo_id", nullable = false)
     private DominioDeMercado mercodigo;
     
-    // @OneToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    // private Endereco endereco; 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private Endereco endereco; 
 
     @Column(nullable = false, unique = true)
     private String entnome;
@@ -39,14 +39,14 @@ public class Empresa {
     public Empresa() {
     }
 
-    // public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco enderEmpreseco) {
-    //     this.mercodigo = mercodigo;
-    //     this.entcodigofip = entcodigofip;
-    //     this.entnome = entnome;
-    //     this.entcgc = entcgc;
-    //     this.dataautorizacao = dataautorizacao;
-    //     // this.endereco = enderEmpreseco;
-    // }
+    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco enderEmpreseco) {
+        this.mercodigo = mercodigo;
+        this.entcodigofip = entcodigofip;
+        this.entnome = entnome;
+        this.entcgc = entcgc;
+        this.dataautorizacao = dataautorizacao;
+        this.endereco = enderEmpreseco;
+    }
 
     public DominioDeMercado getMercodigo() {
         return this.mercodigo;
@@ -88,24 +88,24 @@ public class Empresa {
         this.dataautorizacao = dataautorizacao;
     }
 
-    // public Endereco getEndereco() {
-    //     return this.endereco;
-    // }
+    public Endereco getEndereco() {
+        return this.endereco;
+    }
 
-    // public void setEndereco(Endereco enderEmpreseco) {
-    //     this.endereco = enderEmpreseco;
-    // }
+    public void setEndereco(Endereco enderEmpreseco) {
+        this.endereco = enderEmpreseco;
+    }
 
-    // @Override
-    // public String toString() {
-    //     return "{" +
-    //         " mercodigo='" + getMercodigo() + "'" +
-    //         ", entcodigofip='" + getEntcodigofip() + "'" +
-    //         ", entnome='" + getEntnome() + "'" +
-    //         ", entcgc='" + getEntcgc() + "'" +
-    //         ", dataautorizacao='" + getDataautorizacao() + "'" +
-    //         ", enderEmpreseco='" + getEndereco() + "'" +
-    //         "}";
-    // }
+    @Override
+    public String toString() {
+        return "{" +
+            " mercodigo='" + getMercodigo() + "'" +
+            ", entcodigofip='" + getEntcodigofip() + "'" +
+            ", entnome='" + getEntnome() + "'" +
+            ", entcgc='" + getEntcgc() + "'" +
+            ", dataautorizacao='" + getDataautorizacao() + "'" +
+            ", enderEmpreseco='" + getEndereco() + "'" +
+            "}";
+    }
     
 }
