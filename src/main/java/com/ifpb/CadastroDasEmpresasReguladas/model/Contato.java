@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-
 @Entity
 @Table(name = "tb_contato")
 public class Contato {
