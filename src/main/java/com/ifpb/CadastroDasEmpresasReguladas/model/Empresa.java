@@ -21,20 +21,23 @@ public class Empresa {
 
     @Column(nullable = false, unique = true)
     private String entcodigofip; 
-
-    @ManyToOne //muitas empresas para um mercodigo
-    @JoinColumn(name = "mercodigo_id", nullable = false)
-    private DominioDeMercado mercodigo;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco endereco; 
-
     @Column(nullable = false, unique = true)
     private String entnome;
 
     @Column(nullable = false)
     private LocalDateTime dataautorizacao;
+
+    @ManyToOne //muitas empresas para um mercodigo
+    @JoinColumn(name = "mercodigo_id", nullable = false)
+    private DominioDeMercado mercodigo;
+   
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private Endereco endereco; 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contato_id", referencedColumnName = "id")
+    private Contato contato;
 
     public Empresa() {
     }
@@ -80,6 +83,7 @@ public class Empresa {
         this.entcgc = entcgc;
     }
 
+
     public LocalDateTime getDataautorizacao() {
         return this.dataautorizacao;
     }
@@ -94,6 +98,14 @@ public class Empresa {
 
     public void setEndereco(Endereco enderEmpreseco) {
         this.endereco = enderEmpreseco;
+    }
+
+    public Contato getContato() {
+        return this.contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
     }
 
     @Override
