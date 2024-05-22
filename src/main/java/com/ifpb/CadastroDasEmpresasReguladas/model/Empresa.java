@@ -1,6 +1,7 @@
 package com.ifpb.CadastroDasEmpresasReguladas.model;
 
 import java.time.LocalDateTime;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_empresa")
@@ -19,32 +21,35 @@ public class Empresa {
 
     @Column(nullable = false, unique = true)
     private String entcodigofip; 
-
-    @ManyToOne //muitas empresas para um mercodigo
-    @JoinColumn(name = "mercodigo_id", nullable = false)
-    private DominioDeMercado mercodigo;
-    
-     @OneToOne(cascade = CascadeType.ALL)
-     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-     private Endereco endereco;
-
     @Column(nullable = false, unique = true)
     private String entnome;
 
     @Column(nullable = false)
     private LocalDateTime dataautorizacao;
 
+    @ManyToOne //muitas empresas para um mercodigo
+    @JoinColumn(name = "mercodigo_id", nullable = false)
+    private DominioDeMercado mercodigo;
+   
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private Endereco endereco; 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contato_id", referencedColumnName = "id")
+    private Contato contato;
+
     public Empresa() {
     }
 
-     public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco enderEmpreseco) {
-         this.mercodigo = mercodigo;
-         this.entcodigofip = entcodigofip;
-         this.entnome = entnome;
-         this.entcgc = entcgc;
-         this.dataautorizacao = dataautorizacao;
-         this.endereco = enderEmpreseco;
-     }
+    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco enderEmpreseco) {
+        this.mercodigo = mercodigo;
+        this.entcodigofip = entcodigofip;
+        this.entnome = entnome;
+        this.entcgc = entcgc;
+        this.dataautorizacao = dataautorizacao;
+        this.endereco = enderEmpreseco;
+    }
 
     public DominioDeMercado getMercodigo() {
         return this.mercodigo;
@@ -78,6 +83,7 @@ public class Empresa {
         this.entcgc = entcgc;
     }
 
+
     public LocalDateTime getDataautorizacao() {
         return this.dataautorizacao;
     }
@@ -86,24 +92,32 @@ public class Empresa {
         this.dataautorizacao = dataautorizacao;
     }
 
-     public Endereco getEndereco() {
-         return this.endereco;
-     }
+    public Endereco getEndereco() {
+        return this.endereco;
+    }
 
-     public void setEndereco(Endereco enderEmpreseco) {
-         this.endereco = enderEmpreseco;
-     }
+    public void setEndereco(Endereco enderEmpreseco) {
+        this.endereco = enderEmpreseco;
+    }
 
-     @Override
-     public String toString() {
-         return "{" +
-             " mercodigo='" + getMercodigo() + "'" +
-             ", entcodigofip='" + getEntcodigofip() + "'" +
-             ", entnome='" + getEntnome() + "'" +
-             ", entcgc='" + getEntcgc() + "'" +
-             ", dataautorizacao='" + getDataautorizacao() + "'" +
-             ", enderEmpreseco='" + getEndereco() + "'" +
-             "}";
-     }
+    public Contato getContato() {
+        return this.contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " mercodigo='" + getMercodigo() + "'" +
+            ", entcodigofip='" + getEntcodigofip() + "'" +
+            ", entnome='" + getEntnome() + "'" +
+            ", entcgc='" + getEntcgc() + "'" +
+            ", dataautorizacao='" + getDataautorizacao() + "'" +
+            ", enderEmpreseco='" + getEndereco() + "'" +
+            "}";
+    }
     
 }
