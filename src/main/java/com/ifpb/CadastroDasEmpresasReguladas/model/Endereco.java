@@ -1,7 +1,6 @@
 package com.ifpb.CadastroDasEmpresasReguladas.model;
 
 import java.util.UUID;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +16,7 @@ import jakarta.persistence.Table;
 public class Endereco {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private UUID id;
 
     @Column(unique = true)
