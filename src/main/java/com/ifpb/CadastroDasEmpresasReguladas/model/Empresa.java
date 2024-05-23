@@ -10,7 +10,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import java.util.Objects;
 
 @Entity
 @Table(name = "tb_empresa")
@@ -82,7 +81,6 @@ public class Empresa {
     public void setEntcgc(String entcgc) {
         this.entcgc = entcgc;
     }
-
 
     public LocalDateTime getDataautorizacao() {
         return this.dataautorizacao;

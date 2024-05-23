@@ -1,7 +1,6 @@
 package com.ifpb.CadastroDasEmpresasReguladas.model;
 
 import java.util.UUID;
-
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Entity;
@@ -57,7 +56,6 @@ public class Contato {
         this.fax = fax;
     }
 
-
     public UUID getId() {
         return this.id;
     }
@@ -82,5 +80,4 @@ public class Contato {
             ", fax='" + fax + "'" +
             "}";
     }
-    
 }
