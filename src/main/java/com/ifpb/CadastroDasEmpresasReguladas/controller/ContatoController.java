@@ -2,6 +2,7 @@ package com.ifpb.CadastroDasEmpresasReguladas.controller;
 
 import com.ifpb.CadastroDasEmpresasReguladas.model.Contato;
 import com.ifpb.CadastroDasEmpresasReguladas.repository.ContatoRepository;
+import com.ifpb.CadastroDasEmpresasReguladas.service.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,39 +17,25 @@ import java.util.UUID;
 public class ContatoController {
 
     @Autowired
-    ContatoRepository contatoRepository;
+    ContatoService contatoService;
 
     @GetMapping
-    public ResponseEntity<List<Contato>> getAllContatos(){
-        return ResponseEntity.status(HttpStatus.OK).body(contatoRepository.findAll());
+    public ResponseEntity<List<Contato>> getAllContatos() {
+        return ResponseEntity.status(HttpStatus.OK).body(contatoService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneContato(@PathVariable(value = "id") UUID id){
-        Optional<Contato> contatoOptional = contatoRepository.findById(id);
-        if (!contatoOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contato não encontrado!");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(contatoOptional.get());
+    public ResponseEntity<Object> getOneContato(@PathVariable(value = "id") UUID id) {
+        return ResponseEntity.status(HttpStatus.OK).body(contatoService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteContato(@PathVariable(value = "id") UUID id){
-        Optional<Contato> contatoOptional = contatoRepository.findById(id);
-        if (contatoOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contato não encontrado!");
-        }
-        contatoRepository.delete(contatoOptional.get());
-        return ResponseEntity.status(HttpStatus.OK).body(("O contato foi deletado!"));
+    public ResponseEntity<Object> deleteContato(@PathVariable(value = "id") UUID id) {
+        return ResponseEntity.status(HttpStatus.OK).body(contatoService.delete(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateContato(@PathVariable(value = "id") UUID id, @RequestBody Contato contato){
-        Optional<Contato> contatoOptional = contatoRepository.findById(id);
-        if (contatoOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contato não encontrado!.");
-        }
-        contato.setId(id);
-        return ResponseEntity.status(HttpStatus.OK).body(contatoRepository.save(contato));
+    public ResponseEntity<Object> updateContato(@PathVariable(value = "id") UUID id, @RequestBody Contato contato) {
+        return ResponseEntity.status(HttpStatus.OK).body(contatoService.save(contato, id));
     }
 }

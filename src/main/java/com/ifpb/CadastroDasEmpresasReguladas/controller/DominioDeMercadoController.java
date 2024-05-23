@@ -38,10 +38,8 @@ public class DominioDeMercadoController {
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<DominioDeMercado> update(@PathVariable Integer id, @RequestBody DominioDeMercado dominioDeMercado) {
-        DominioDeMercado dominioDeMercadoAtualizado = dominioDeMercadoService.update(dominioDeMercado);
-        
-        return ResponseEntity.ok(dominioDeMercadoAtualizado);
+    public ResponseEntity<DominioDeMercado> update(@PathVariable Integer codigo, @RequestBody DominioDeMercado dominioDeMercado) {
+        return ResponseEntity.ok(dominioDeMercadoService.update(dominioDeMercado, codigo));
     }
 
     @DeleteMapping("/{codigo}")

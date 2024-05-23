@@ -37,9 +37,11 @@ public class DominioDeMercadoService {
        return dominioDeMercadoRepository.save(dominioDeMercado);
     }
 
-    public DominioDeMercado update(DominioDeMercado dominioDeMercado) {
-       this.findById(dominioDeMercado.getCodigo());
-       return dominioDeMercadoRepository.save(dominioDeMercado);
+    public DominioDeMercado update(DominioDeMercado dominioDeMercado, Integer codigo) {
+        DominioDeMercado dominioDeMercadoAtualizado = dominioDeMercadoRepository.findById(codigo).get();
+        dominioDeMercadoAtualizado.setDescricao(dominioDeMercado.getDescricao());
+
+        return save(dominioDeMercadoAtualizado);
     }
 
     public void deleteById(Integer mercodigo) {
