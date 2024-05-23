@@ -36,6 +36,6 @@ public class ContatoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateContato(@PathVariable(value = "id") UUID id, @RequestBody Contato contato) {
-        return ResponseEntity.status(HttpStatus.OK).body(contatoService.save(contato, id));
+        return ResponseEntity.status(HttpStatus.OK).body(contatoService.update(contato, id));
     }
 }

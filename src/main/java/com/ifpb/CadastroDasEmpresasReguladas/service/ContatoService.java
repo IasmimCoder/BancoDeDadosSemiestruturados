@@ -41,7 +41,7 @@ public class ContatoService {
         return "Contato deletado!";
     }
 
-    public Contato save(Contato contato, UUID id) {
+    public Contato update(Contato contato, UUID id) {
         Optional<Contato> contatoOptional = contatoRepository.findById(id);
         if (contatoOptional.isEmpty()) {
             throw new NotFoundException("Contato não encontrado!");
