@@ -2,12 +2,7 @@ package com.ifpb.CadastroDasEmpresasReguladas.model;
 
 import java.util.UUID;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_contato")
@@ -19,9 +14,12 @@ public class Contato {
 
     @OneToOne(mappedBy = "contato")
     private Empresa empresa;
-    
+
+    @Column
     private String telefone;
+    @Column
     private String ddd;
+    @Column
     private String fax;
 
     public Contato() {
@@ -57,7 +55,6 @@ public class Contato {
         this.fax = fax;
     }
 
-
     public UUID getId() {
         return this.id;
     }
@@ -82,5 +79,4 @@ public class Contato {
             ", fax='" + fax + "'" +
             "}";
     }
-    
 }

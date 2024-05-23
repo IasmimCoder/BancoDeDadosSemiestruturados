@@ -25,7 +25,6 @@ public class DominioDeMercado {
     @OneToMany(mappedBy = "mercodigo", cascade = CascadeType.ALL)
     private List<Empresa> empresas;
 
-    // Getters e Setters
     public Integer getCodigo() {
         return codigo;
     }
