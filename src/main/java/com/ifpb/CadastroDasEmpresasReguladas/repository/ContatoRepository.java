@@ -1,4 +1,4 @@
-package com.ifpb.CadastroDasEmpresasReguladas.repositories;
+package com.ifpb.CadastroDasEmpresasReguladas.repository;
 
 import com.ifpb.CadastroDasEmpresasReguladas.model.Contato;
 import org.springframework.data.jpa.repository.JpaRepository;

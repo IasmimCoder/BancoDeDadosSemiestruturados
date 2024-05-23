@@ -1,7 +1,7 @@
 package com.ifpb.CadastroDasEmpresasReguladas.controller;
 
 import com.ifpb.CadastroDasEmpresasReguladas.model.Empresa;
-import com.ifpb.CadastroDasEmpresasReguladas.repositories.EmpresaRepository;
+import com.ifpb.CadastroDasEmpresasReguladas.repository.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
