@@ -1,14 +1,11 @@
 package com.ifpb.CadastroDasEmpresasReguladas.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.ifpb.CadastroDasEmpresasReguladas.model.DominioDeMercado;
-import com.ifpb.CadastroDasEmpresasReguladas.repository.DominioDeMercadoRepository;
 import com.ifpb.CadastroDasEmpresasReguladas.service.DominioDeMercadoService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
