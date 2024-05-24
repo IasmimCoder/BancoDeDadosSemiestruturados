@@ -52,5 +52,4 @@ public class EmpresaController {
     public void deleteById(@PathVariable String codigo){
         empresaService.deleteById(codigo);
     }
-    
 }

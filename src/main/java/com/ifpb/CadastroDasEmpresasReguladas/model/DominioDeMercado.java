@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class DominioDeMercado {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer codigo;
 
     @Column(nullable = false, unique = true, length = 30)
@@ -24,6 +24,12 @@ public class DominioDeMercado {
 
     @OneToMany(mappedBy = "mercodigo", cascade = CascadeType.ALL)
     private List<Empresa> empresas;
+
+    public DominioDeMercado(Integer codigo){
+        this.codigo = codigo;
+    }
+
+    public DominioDeMercado(){}
 
     public Integer getCodigo() {
         return codigo;

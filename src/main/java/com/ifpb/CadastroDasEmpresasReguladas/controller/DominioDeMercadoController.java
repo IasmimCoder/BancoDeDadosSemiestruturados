@@ -10,6 +10,8 @@ import com.ifpb.CadastroDasEmpresasReguladas.service.DominioDeMercadoService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @RestController
 @RequestMapping("/api/v1/dominioDeMercado")
@@ -30,6 +32,15 @@ public class DominioDeMercadoController {
         return ResponseEntity.ok(dominioDeMercado);
     }
 
+    @PostMapping("/lista")
+    public ResponseEntity<List<DominioDeMercado>> createList(@RequestBody List<DominioDeMercado> listaDeDominios) {
+        for (DominioDeMercado dominioDeMercado : listaDeDominios) {
+            create(dominioDeMercado);
+        }
+        
+        return ResponseEntity.ok(listaDeDominios);
+    }
+    
     @PostMapping()
     public ResponseEntity<DominioDeMercado> create(@RequestBody DominioDeMercado dominioDeMercado) {
         DominioDeMercado dominioNovo = dominioDeMercadoService.save(dominioDeMercado);

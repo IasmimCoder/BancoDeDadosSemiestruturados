@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 public class Empresa {
 
     @Id
+    @Column(nullable = false, unique = true)
     private String entcgc; //chave primaria
 
     @Column(nullable = false, unique = true)

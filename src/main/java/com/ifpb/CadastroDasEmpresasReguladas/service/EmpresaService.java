@@ -3,11 +3,14 @@ package com.ifpb.CadastroDasEmpresasReguladas.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ifpb.CadastroDasEmpresasReguladas.exceptions.ExistingEntityException;
 import com.ifpb.CadastroDasEmpresasReguladas.exceptions.NotFoundException;
 import com.ifpb.CadastroDasEmpresasReguladas.model.Empresa;
 import com.ifpb.CadastroDasEmpresasReguladas.repository.EmpresaRepository;
 
+@Service
 public class EmpresaService {
 
     @Autowired
@@ -15,9 +18,9 @@ public class EmpresaService {
 
     public Empresa save(Empresa empresa) {
         
-       if(empresaRepository.existsByEntNome(empresa.getEntnome())) {
-        throw new ExistingEntityException("Já existe uma empresa cadastrada com esse nome!");
-       }
+      //  if(empresaRepository.existsByEntNome(empresa.getEntnome())) {
+      //   throw new ExistingEntityException("Já existe uma empresa cadastrada com esse nome!");
+      //  }
        
        return empresaRepository.save(empresa);
     }

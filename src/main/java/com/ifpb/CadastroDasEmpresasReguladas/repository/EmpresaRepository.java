@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmpresaRepository extends JpaRepository <Empresa, String> {
 
-    Boolean existsByEntNome(String entnome);
-
+    // Boolean existsByEntNome(String entnome);
 }
