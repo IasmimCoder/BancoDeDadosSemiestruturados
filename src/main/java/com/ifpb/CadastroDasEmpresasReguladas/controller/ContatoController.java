@@ -1,14 +1,12 @@
 package com.ifpb.CadastroDasEmpresasReguladas.controller;
 
 import com.ifpb.CadastroDasEmpresasReguladas.model.Contato;
-import com.ifpb.CadastroDasEmpresasReguladas.repository.ContatoRepository;
 import com.ifpb.CadastroDasEmpresasReguladas.service.ContatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -25,17 +23,17 @@ public class ContatoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneContato(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Contato> getOneContato(@PathVariable(value = "id") UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(contatoService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteContato(@PathVariable(value = "id") UUID id) {
-        return ResponseEntity.status(HttpStatus.OK).body(contatoService.delete(id));
+    public void deleteContato(@PathVariable(value = "id") UUID id) {
+        contatoService.delete(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateContato(@PathVariable(value = "id") UUID id, @RequestBody Contato contato) {
+    public ResponseEntity<Contato> updateContato(@PathVariable(value = "id") UUID id, @RequestBody Contato contato) {
         return ResponseEntity.status(HttpStatus.OK).body(contatoService.update(contato, id));
     }
 }

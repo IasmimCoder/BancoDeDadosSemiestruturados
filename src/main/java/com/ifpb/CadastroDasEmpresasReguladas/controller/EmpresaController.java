@@ -48,8 +48,14 @@ public class EmpresaController {
         return ResponseEntity.ok(empresaAtualizada);
     }
     
-    @DeleteMapping
+    @DeleteMapping("/{codigo}")
     public void deleteById(@PathVariable String codigo){
         empresaService.deleteById(codigo);
     }
+
+    @DeleteMapping
+    public void deleteAll(){
+        empresaService.deleteAll();
+    };
+
 }

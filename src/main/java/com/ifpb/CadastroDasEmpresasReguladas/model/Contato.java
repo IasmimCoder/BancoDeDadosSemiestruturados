@@ -12,7 +12,8 @@ public class Contato {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToOne(mappedBy = "contato")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "contato")
+    // @JoinColumn(name = "empresa_id", referencedColumnName = "entcgc")
     private Empresa empresa;
 
     @Column
@@ -70,7 +71,7 @@ public class Contato {
     public void setEmpresa(Empresa empresa) {
         this.empresa = empresa;
     }
-
+   
     @Override
     public String toString() {
         return "{" +

@@ -51,4 +51,8 @@ public class EmpresaService {
        empresaRepository.deleteById(codigo);
     }
 
+    public void deleteAll(){
+      empresaRepository.deleteAll();
+    }
+
 }

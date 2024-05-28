@@ -4,8 +4,6 @@ import com.ifpb.CadastroDasEmpresasReguladas.exceptions.NotFoundException;
 import com.ifpb.CadastroDasEmpresasReguladas.model.Contato;
 import com.ifpb.CadastroDasEmpresasReguladas.repository.ContatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,24 +20,20 @@ public class ContatoService {
         return contatoRepository.findAll();
     }
 
-    public Optional<Contato> findById(UUID id) {
-        Optional<Contato> contatoOptional = contatoRepository.findById(id);
-        if(contatoOptional.isEmpty()) {
-            throw new NotFoundException("Contato não encontrado!");
-        }
-
-        return contatoRepository.findById(id);
+    public Contato findById(UUID id) {
+        return contatoRepository.findById(id).orElseThrow(
+            () -> new NotFoundException("Contato não encontrado!")
+        );
     }
 
-    public String delete(UUID id) {
+    public void delete(UUID id) {
         Optional<Contato> contatoOptional = contatoRepository.findById(id);
         if (contatoOptional.isEmpty()) {
             throw new NotFoundException("Contato não encontrado!");
         }
         contatoRepository.delete(contatoOptional.get());
-
-        return "Contato deletado!";
     }
+
 
     public Contato update(Contato contato, UUID id) {
         Optional<Contato> contatoOptional = contatoRepository.findById(id);

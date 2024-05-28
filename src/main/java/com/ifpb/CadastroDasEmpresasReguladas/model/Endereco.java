@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class Endereco {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(unique = true)
@@ -31,8 +31,8 @@ public class Endereco {
     @Column
     private String cep;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "empresa_id", referencedColumnName = "entcgc")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "endereco")
+    // @JoinColumn(name = "empresa_id", referencedColumnName = "entcgc")
     private Empresa empresa;
 
     public Endereco() {
@@ -75,6 +75,22 @@ public class Endereco {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public UUID getId() {
+        return this.id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Empresa getEmpresa() {
+        return this.empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     @Override
