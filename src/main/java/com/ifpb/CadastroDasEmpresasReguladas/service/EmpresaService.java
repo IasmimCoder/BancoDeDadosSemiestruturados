@@ -3,10 +3,13 @@ package com.ifpb.CadastroDasEmpresasReguladas.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.ifpb.CadastroDasEmpresasReguladas.mapper.EmpresaMapper;
 import com.ifpb.CadastroDasEmpresasReguladas.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ifpb.CadastroDasEmpresasReguladas.exceptions.ExistingEntityException;
@@ -20,25 +23,7 @@ public class EmpresaService {
     private EmpresaRepository empresaRepository;
 
     public Empresa save(EmpresaDTO empresaDTO) {
-        var empresa = new Empresa();
-        var contato = new Contato(empresaDTO.getDdd(),empresaDTO.getTelefone(),empresaDTO.getFax());
-        var endereco = new Endereco(empresaDTO.getEndereco(),empresaDTO.getBairro(),empresaDTO.getCidade(),empresaDTO.getCep());
-
-        empresa.setMercodigo(new DominioDeMercado(empresaDTO.getMercodigo()));
-        empresa.setEndereco(endereco);
-        empresa.setContato(contato);
-        empresa.setEntcodigofip(empresaDTO.getEntcodigofip());
-        empresa.setEntnome(empresaDTO.getEntnome());
-        empresa.setEntcgc(empresaDTO.getEntcgc());
-
-        if(empresaDTO.getDataautorizacao()!=null){
-            String s = empresaDTO.getDataautorizacao();
-            DateTimeFormatter parser = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-            LocalDateTime dateTime = LocalDate.parse(s, parser).atStartOfDay();
-            empresa.setDataautorizacao(dateTime);
-        }
-
-        return empresaRepository.save(empresa);
+        return empresaRepository.save(EmpresaMapper.toEntity(empresaDTO));
     }
 
     public List<Empresa> findAll() {
@@ -74,5 +59,33 @@ public class EmpresaService {
 
     public void deleteAll(){
       empresaRepository.deleteAll();
+    }
+
+    public List<Empresa> findByName(String nome) {
+        List<Empresa> empresas = new ArrayList<>();
+        for (Empresa empresa : findAll()) {
+            if(nome.equals(empresa.getEntnome())){
+                empresas.add(empresa);
+            }
+        }
+
+        if(empresas.isEmpty()){
+            throw new NotFoundException("Empresa não encontrada!");
+        }
+        return empresas;
+    }
+
+    public List<Empresa> findByMercodigo(Integer mercodigo) {
+        List<Empresa> empresas = new ArrayList<>();
+        for (Empresa empresa : findAll()) {
+            if(mercodigo.equals(empresa.getMercodigo().getCodigo())){
+                empresas.add(empresa);
+            }
+        }
+
+        if(empresas.isEmpty()){
+            throw new NotFoundException("Nenhuma empresa cadastrada com esse código de mercado!");
+        }
+        return empresas;
     }
 }

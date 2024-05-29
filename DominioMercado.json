@@ -1,0 +1,38 @@
+[
+    {
+        "codigo": 1,
+        "descricao": "Previdência"
+    },
+    {
+        "codigo": 2,
+        "descricao": "Seguros"
+    },
+    {
+        "codigo": 3,
+        "descricao": "Resseguradora Local"
+    },
+    {
+        "codigo": 4,
+        "descricao": "Resseguradora Admitida"
+    },
+    {
+        "codigo": 5,
+        "descricao": "Autorreguladoras"
+    },
+    {
+        "codigo": 6,
+        "descricao": "Capitalização"
+    },
+    {
+        "codigo": 7,
+        "descricao": "Resseguradora Eventual"
+    },
+    {
+        "codigo": 8,
+        "descricao": "Corretores de Resseguro"
+    },
+    {
+        "codigo": 99,
+        "descricao": "Sandbox"
+    }
+]
