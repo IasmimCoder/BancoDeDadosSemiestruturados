@@ -42,13 +42,14 @@ public class Empresa {
     public Empresa() {
     }
 
-    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco enderEmpreseco) {
+    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco endereco, Contato contato) {
         this.mercodigo = mercodigo;
         this.entcodigofip = entcodigofip;
         this.entnome = entnome;
         this.entcgc = entcgc;
         this.dataautorizacao = dataautorizacao;
-        this.endereco = enderEmpreseco;
+        this.endereco = endereco;
+        this.contato = contato;
     }
 
     public DominioDeMercado getMercodigo() {
