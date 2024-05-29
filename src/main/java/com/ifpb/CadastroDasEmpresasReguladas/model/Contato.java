@@ -12,14 +12,12 @@ public class Contato {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "contato")
-    // @JoinColumn(name = "empresa_id", referencedColumnName = "entcgc")
-    private Empresa empresa;
-
     @Column
     private String telefone;
+
     @Column
     private String ddd;
+
     @Column
     private String fax;
 
@@ -64,14 +62,6 @@ public class Contato {
         this.id = id;
     }
 
-    public Empresa getEmpresa() {
-        return this.empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-   
     @Override
     public String toString() {
         return "{" +
