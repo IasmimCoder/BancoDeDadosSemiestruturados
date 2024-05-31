@@ -48,6 +48,18 @@ public class EmpresaController {
         return ResponseEntity.ok(listaDeEmpresas);
     }
 
+    @GetMapping("/nome/{entnome}")
+    public ResponseEntity<List<Empresa>> findByName(@PathVariable(value = "entnome") String entnome) {
+        List<Empresa> empresas = empresaService.findByName(entnome);
+        return ResponseEntity.ok(empresas);
+    }
+
+    @GetMapping("/mercodigo/{mercodigo}")
+    public ResponseEntity<List<Empresa>> findByMercodigo(@PathVariable(value = "mercodigo") Integer mercodigo) {
+        List<Empresa> empresas = empresaService.findByMercodigo(mercodigo);
+        return ResponseEntity.ok(empresas);
+    }
+
     @GetMapping("/{entcodigofip}")
     public ResponseEntity<Empresa> findById(@PathVariable(value = "entcodigofip") String entcodigofip) {
         Empresa empresa = empresaService.findById(entcodigofip);
