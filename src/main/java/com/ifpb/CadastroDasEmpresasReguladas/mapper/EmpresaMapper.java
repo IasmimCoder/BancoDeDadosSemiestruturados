@@ -2,9 +2,6 @@ package com.ifpb.CadastroDasEmpresasReguladas.mapper;
 
 import com.ifpb.CadastroDasEmpresasReguladas.model.*;
 import org.springframework.stereotype.Component;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Component
 public class EmpresaMapper {
@@ -24,12 +21,6 @@ public class EmpresaMapper {
         empresa.setEntnome(empresaDTO.getEntnome());
         empresa.setEntcgc(empresaDTO.getEntcgc());
 
-        if(!empresaDTO.getDataautorizacao().equals("Não registrado!")){
-            String s = empresaDTO.getDataautorizacao();
-            DateTimeFormatter parser = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-            LocalDateTime dateTime = LocalDate.parse(s, parser).atStartOfDay();
-            empresa.setDataautorizacao(dateTime);
-        }
         return empresa;
     }
 
@@ -45,6 +36,7 @@ public class EmpresaMapper {
         }
         return contato;
     }
+
     public static Endereco verNullEndereco(Endereco endereco){
         if (endereco.getEndereco()==null){
             endereco.setEndereco("Não registrado!");
@@ -60,6 +52,7 @@ public class EmpresaMapper {
         }
         return endereco;
     }
+
     public static EmpresaDTO verNullEmpresa(EmpresaDTO empresaDTO){
         if (empresaDTO.getDataautorizacao()==null){
             empresaDTO.setDataautorizacao("Não registrado!");
@@ -67,11 +60,9 @@ public class EmpresaMapper {
         if (empresaDTO.getEntcgc()==null||empresaDTO.getEntcgc().equals("00000000000000")){
             empresaDTO.setEntcgc("Não registrado!");
         }
+        if(empresaDTO.getDataautorizacao()==null){
+            empresaDTO.setDataautorizacao("Não registrado!");
+        }
         return empresaDTO;
     }
-
-//    public EmpresaDTO toDto(Empresa entity) {
-//
-//        return dto;
-//    }
 }

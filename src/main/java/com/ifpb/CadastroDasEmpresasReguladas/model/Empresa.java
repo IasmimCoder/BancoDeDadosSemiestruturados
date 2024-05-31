@@ -18,8 +18,7 @@ public class Empresa {
     private String entnome;
 
     @Column
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime dataautorizacao;
+    private String dataautorizacao;
 
     @ManyToOne
     @JoinColumn(name = "mercodigo_id", nullable = false)
@@ -40,7 +39,7 @@ public class Empresa {
     public Empresa() {
     }
 
-    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Contato contato, Endereco endereco) {
+    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, String dataautorizacao, Contato contato, Endereco endereco) {
         this.mercodigo = mercodigo;
         this.entcodigofip = entcodigofip;
         this.entnome = entnome;
@@ -82,11 +81,11 @@ public class Empresa {
         this.entcgc = entcgc;
     }
 
-    public LocalDateTime getDataautorizacao() {
+    public String getDataautorizacao() {
         return this.dataautorizacao;
     }
 
-    public void setDataautorizacao(LocalDateTime dataautorizacao) {
+    public void setDataautorizacao(String dataautorizacao) {
         this.dataautorizacao = dataautorizacao;
     }
 
