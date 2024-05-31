@@ -1,10 +1,15 @@
 package com.ifpb.CadastroDasEmpresasReguladas.controller;
 
+import com.ifpb.CadastroDasEmpresasReguladas.model.DominioDeMercado;
 import com.ifpb.CadastroDasEmpresasReguladas.model.Empresa;
+import com.ifpb.CadastroDasEmpresasReguladas.model.EmpresaDTO;
 import com.ifpb.CadastroDasEmpresasReguladas.service.EmpresaService;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +29,17 @@ public class EmpresaController {
     EmpresaService empresaService;
 
     @PostMapping
-    public ResponseEntity<Empresa> saveEmpresa(@RequestBody Empresa empresa) {
-        Empresa empresaCriada = empresaService.save(empresa);
+    public ResponseEntity<Empresa> saveEmpresa(@RequestBody EmpresaDTO empresaDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(empresaService.save(empresaDTO));
+    }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(empresaCriada);
+    @PostMapping("/lista")
+    public ResponseEntity<List<EmpresaDTO>> createList(@RequestBody List<EmpresaDTO> listaDeEmpresas) {
+        for (EmpresaDTO empresaDTO : listaDeEmpresas) {
+            saveEmpresa(empresaDTO);
+        }
+
+        return ResponseEntity.ok(listaDeEmpresas);
     }
 
     @GetMapping()
@@ -36,26 +48,25 @@ public class EmpresaController {
         return ResponseEntity.ok(listaDeEmpresas);
     }
 
-    @GetMapping("/{codigo}")
-    public ResponseEntity<Empresa> findById(@RequestParam String codigo) {
-        Empresa empresa = empresaService.findById(codigo);
+    @GetMapping("/{entcodigofip}")
+    public ResponseEntity<Empresa> findById(@PathVariable(value = "entcodigofip") String entcodigofip) {
+        Empresa empresa = empresaService.findById(entcodigofip);
         return ResponseEntity.ok(empresa);
     }
 
-    @PutMapping("/{codigo}")
-    public ResponseEntity<Empresa> update(@PathVariable String codigo, @RequestBody Empresa empresa) {
-        Empresa empresaAtualizada = empresaService.update(codigo, empresa);
+    @PutMapping("/{entcodigofip}")
+    public ResponseEntity<Empresa> update(@PathVariable String entcodigofip, @RequestBody EmpresaDTO empresaDTO) {
+        Empresa empresaAtualizada = empresaService.update(entcodigofip, empresaDTO);
         return ResponseEntity.ok(empresaAtualizada);
     }
     
-    @DeleteMapping("/{codigo}")
-    public void deleteById(@PathVariable String codigo){
-        empresaService.deleteById(codigo);
+    @DeleteMapping("/{entcodigofip}")
+    public void deleteById(@PathVariable String entcodigofip){
+        empresaService.deleteById(entcodigofip);
     }
 
     @DeleteMapping
     public void deleteAll(){
         empresaService.deleteAll();
-    };
-
+    }
 }

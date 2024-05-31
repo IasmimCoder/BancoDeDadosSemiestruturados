@@ -19,7 +19,7 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true)
+    @Column
     private String endereco;
 
     @Column
@@ -30,10 +30,6 @@ public class Endereco {
 
     @Column
     private String cep;
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "endereco")
-    // @JoinColumn(name = "empresa_id", referencedColumnName = "entcgc")
-    private Empresa empresa;
 
     public Endereco() {
     }
@@ -83,14 +79,6 @@ public class Endereco {
 
     public void setId(UUID id) {
         this.id = id;
-    }
-
-    public Empresa getEmpresa() {
-        return this.empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
     }
 
     @Override

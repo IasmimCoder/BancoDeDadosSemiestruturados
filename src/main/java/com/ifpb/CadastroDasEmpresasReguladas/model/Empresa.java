@@ -1,55 +1,53 @@
 package com.ifpb.CadastroDasEmpresasReguladas.model;
 
 import java.time.LocalDateTime;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_empresa")
 public class Empresa {
 
     @Id
-    @Column(nullable = false, unique = true)
-    private String entcgc; //chave primaria
+    private String entcodigofip; //chave primária
 
-    @Column(nullable = false, unique = true)
-    private String entcodigofip; 
-    @Column(nullable = false, unique = true)
-    private String entnome;
+    @Column
+    private String entcgc;
 
     @Column(nullable = false)
+    private String entnome;
+
+    @Column
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime dataautorizacao;
 
-    @ManyToOne //muitas empresas para um mercodigo
+    @ManyToOne
     @JoinColumn(name = "mercodigo_id", nullable = false)
     private DominioDeMercado mercodigo;
-   
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
-    private Endereco endereco; 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contato_id", referencedColumnName = "id")
-    private Contato contato;
+    @JoinTable(name = "tb_empresa_contato",
+            joinColumns = @JoinColumn(name = "empresa_id", referencedColumnName = "entcodigofip"),
+            inverseJoinColumns = @JoinColumn(name = "contato_id", referencedColumnName = "id"))
+    private Contato contato = new Contato();
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "tb_empresa_endereco",
+            joinColumns = @JoinColumn(name = "empresa_id", referencedColumnName = "entcodigofip"),
+            inverseJoinColumns = @JoinColumn(name = "endereco_id", referencedColumnName = "id"))
+    private Endereco endereco = new Endereco();
 
     public Empresa() {
     }
 
-    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Endereco endereco, Contato contato) {
+    public Empresa(DominioDeMercado mercodigo, String entcodigofip, String entnome, String entcgc, LocalDateTime dataautorizacao, Contato contato, Endereco endereco) {
         this.mercodigo = mercodigo;
         this.entcodigofip = entcodigofip;
         this.entnome = entnome;
         this.entcgc = entcgc;
         this.dataautorizacao = dataautorizacao;
-        this.endereco = endereco;
         this.contato = contato;
+        this.endereco = endereco;
     }
 
     public DominioDeMercado getMercodigo() {
@@ -92,32 +90,32 @@ public class Empresa {
         this.dataautorizacao = dataautorizacao;
     }
 
-    public Endereco getEndereco() {
-        return this.endereco;
-    }
-
-    public void setEndereco(Endereco enderEmpreseco) {
-        this.endereco = enderEmpreseco;
-    }
-
     public Contato getContato() {
-        return this.contato;
+        return contato;
     }
 
     public void setContato(Contato contato) {
         this.contato = contato;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
     @Override
     public String toString() {
-        return "{" +
-            " mercodigo='" + getMercodigo() + "'" +
-            ", entcodigofip='" + getEntcodigofip() + "'" +
-            ", entnome='" + getEntnome() + "'" +
-            ", entcgc='" + getEntcgc() + "'" +
-            ", dataautorizacao='" + getDataautorizacao() + "'" +
-            ", enderEmpreseco='" + getEndereco() + "'" +
-            "}";
+        return "Empresa{" +
+                "entcgc='" + entcgc + '\'' +
+                ", entcodigofip='" + entcodigofip + '\'' +
+                ", entnome='" + entnome + '\'' +
+                ", dataautorizacao=" + dataautorizacao +
+                ", mercodigo=" + mercodigo +
+                ", contato=" + contato +
+                ", endereco=" + endereco +
+                '}';
     }
-    
 }

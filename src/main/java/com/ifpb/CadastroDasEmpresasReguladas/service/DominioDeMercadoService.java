@@ -18,16 +18,10 @@ public class DominioDeMercadoService {
     private DominioDeMercadoRepository dominioDeMercadoRepository;
 
     public List<DominioDeMercado> findAll() {
-        // List<DominioDeMercado> listaDominios = dominioDeMercadoRepository.findAll();
-        // return ResponseEntity.ok(listaDominios);
         return dominioDeMercadoRepository.findAll();
     }
 
     public DominioDeMercado findById(Integer codigo) {
-        // DominioDeMercado dominioDeMercado = dominioDeMercadoRepository.findById(codigo).orElseThrow(
-        //     () -> new NotFoundException("Domínio de mercado não encontrado com o código: " + codigo)
-        // );
-        // return ResponseEntity.ok(dominioDeMercado);
         return dominioDeMercadoRepository.findById(codigo).orElseThrow(
             () -> new NotFoundException("Domínio de mercado não encontrado com o código: " + codigo)
         );

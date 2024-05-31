@@ -1,12 +1,9 @@
 package com.ifpb.CadastroDasEmpresasReguladas.model;
 
 import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -16,10 +13,9 @@ import jakarta.persistence.Table;
 public class DominioDeMercado {
 
     @Id
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer codigo;
 
-    @Column(nullable = false, unique = true, length = 30)
+    @Column(nullable = false, unique = true, length = 23)
     private String descricao;
 
     @OneToMany(mappedBy = "mercodigo", cascade = CascadeType.ALL)
@@ -46,5 +42,4 @@ public class DominioDeMercado {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
 }
