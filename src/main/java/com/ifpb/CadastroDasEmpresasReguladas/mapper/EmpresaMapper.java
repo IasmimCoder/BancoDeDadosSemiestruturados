@@ -46,7 +46,7 @@ public class EmpresaMapper {
         //verifica se tem a qtde de numeros correta
        if (!(telefone.length() >= 8 && telefone.length() <= 10)) return false;
 
-        
+       return true;
     }
 
     private static boolean validarFax(String fax){
@@ -75,6 +75,7 @@ public class EmpresaMapper {
         if (contato.getDdd()==null||contato.getDdd().equals("0")){
             contato.setDdd("Não registrado!");
         }
+
         if (contato.getFax()==null){
             contato.setFax("Não registrado!");
         }
@@ -82,9 +83,12 @@ public class EmpresaMapper {
             contato.setFax("Não registrado!");
         }
         
-        if (contato.getTelefone()==null||contato.getTelefone().equals("")||contato.getTelefone().equals("00000000")){
+        if (contato.getTelefone()==null){
+            contato.setTelefone("Não registrado!");
+        }else if (!validarTelefone(contato.getTelefone())){
             contato.setTelefone("Não registrado!");
         }
+        
         return contato;
     }
 
