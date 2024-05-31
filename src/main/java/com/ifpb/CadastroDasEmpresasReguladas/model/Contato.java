@@ -12,13 +12,13 @@ public class Contato {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(unique = true)
+    @Column
     private String telefone;
 
     @Column
     private String ddd;
 
-    @Column(unique = true)
+    @Column
     private String fax;
 
     public Contato() {

@@ -24,14 +24,65 @@ public class EmpresaMapper {
         return empresa;
     }
 
+    private static boolean validarTelefone(String telefone){
+        //retira todos os caracteres não-numéricos (incluindo espaço,tab, etc)
+       telefone = telefone.replaceAll("\\D","");
+
+       //verifica se o numero foi digitado com todos os dígitos iguais
+       java.util.regex.Pattern p = java.util.regex.Pattern.compile(telefone.charAt(0)+"{"+telefone.length()+"}");
+       java.util.regex.Matcher m = p.matcher(telefone);
+       if(m.find()) return false;
+
+
+        if (telefone.startsWith("0800")) {
+            
+            //verifica se tem a qtde de numeros correta
+            if (telefone.length() == 11){
+                return true;
+            } 
+            return false;
+        }
+
+        //verifica se tem a qtde de numeros correta
+       if (!(telefone.length() >= 8 && telefone.length() <= 10)) return false;
+
+        
+    }
+
+    private static boolean validarFax(String fax){
+    
+       //retira todos os caracteres não-numéricos (incluindo espaço,tab, etc)
+       fax = fax.replaceAll("\\D","");
+   
+       //verifica se tem a qtde de numeros correta
+       if (!(fax.length() >= 8 && fax.length() <= 10)) return false;
+    
+       //verifica se o numero foi digitado com todos os dígitos iguais
+       java.util.regex.Pattern p = java.util.regex.Pattern.compile(fax.charAt(0)+"{"+fax.length()+"}");
+       java.util.regex.Matcher m = p.matcher(fax);
+       if(m.find()) return false;
+   
+       //Se o número só tiver dez digitos não é um celular e por isso o número logo após o DDD deve ser 2, 3, 4, 5 ou 7 
+       Integer[] prefixos = {2, 3, 4, 5, 7};
+   
+       if (fax.length() == 10 && java.util.Arrays.asList(prefixos).indexOf(Integer.parseInt(fax.substring(2, 3))) == -1) return false;
+    
+       //se passar por todas as validações acima, então está tudo certo
+       return true;
+    }
+
     public static Contato verNullContato(Contato contato){
-        if (contato.getDdd()==null){
+        if (contato.getDdd()==null||contato.getDdd().equals("0")){
             contato.setDdd("Não registrado!");
         }
         if (contato.getFax()==null){
             contato.setFax("Não registrado!");
         }
-        if (contato.getTelefone()==null){
+        else if (!validarFax(contato.getFax())){
+            contato.setFax("Não registrado!");
+        }
+        
+        if (contato.getTelefone()==null||contato.getTelefone().equals("")||contato.getTelefone().equals("00000000")){
             contato.setTelefone("Não registrado!");
         }
         return contato;
