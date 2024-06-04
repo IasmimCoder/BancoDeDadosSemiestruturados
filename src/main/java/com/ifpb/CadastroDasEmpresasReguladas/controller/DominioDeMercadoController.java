@@ -54,7 +54,12 @@ public class DominioDeMercadoController {
     }
 
     @DeleteMapping("/{codigo}")
-    public void deleteById(@PathVariable Integer mercodigo){
-        dominioDeMercadoService.deleteById(mercodigo);
+    public void deleteById(@PathVariable Integer codigo){
+        dominioDeMercadoService.deleteById(codigo);
+    }
+
+    @DeleteMapping()
+    public void deleteAll(){
+        dominioDeMercadoService.deleteAll();
     }
 }
