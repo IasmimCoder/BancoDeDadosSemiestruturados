@@ -43,9 +43,9 @@ public class DominioDeMercadoService {
         return save(dominioDeMercadoAtualizado);
     }
 
-    public void deleteById(Integer mercodigo) {
-        this.findById(mercodigo);
-        dominioDeMercadoRepository.deleteById(mercodigo);
+    public void deleteById(Integer codigo) {
+        this.findById(codigo);
+        dominioDeMercadoRepository.deleteById(codigo);
     }
 
     @PostConstruct
@@ -70,5 +70,9 @@ public class DominioDeMercadoService {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public void deleteAll() {
+        dominioDeMercadoRepository.deleteAll();
     }
 }
