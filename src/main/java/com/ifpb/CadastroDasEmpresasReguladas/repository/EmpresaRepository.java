@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmpresaRepository extends JpaRepository <Empresa, String> {
-
+    long count();
 }

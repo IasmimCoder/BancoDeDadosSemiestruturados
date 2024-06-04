@@ -1,14 +1,19 @@
 package com.ifpb.CadastroDasEmpresasReguladas.service;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ifpb.CadastroDasEmpresasReguladas.DTO.ListaDominiosDTO;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.ifpb.CadastroDasEmpresasReguladas.model.DominioDeMercado;
 import com.ifpb.CadastroDasEmpresasReguladas.repository.DominioDeMercadoRepository;
-
 import com.ifpb.CadastroDasEmpresasReguladas.exceptions.NotFoundException;
 
 @Service
@@ -41,5 +46,29 @@ public class DominioDeMercadoService {
     public void deleteById(Integer mercodigo) {
         this.findById(mercodigo);
         dominioDeMercadoRepository.deleteById(mercodigo);
+    }
+
+    @PostConstruct
+    public void getGovToTableDominioMercado() throws IOException, InterruptedException {
+
+        if (dominioDeMercadoRepository.count()==0) {
+
+            try {
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create("https://dados.susep.gov.br/olinda/servico/empresas/versao/v1/odata/DominioMercado?$format=json")).build();
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+                ObjectMapper mapper = new ObjectMapper();
+                ListaDominiosDTO listaDominiosDTO = mapper.readValue(response.body(), ListaDominiosDTO.class);
+
+                for(DominioDeMercado dominioDeMercado: listaDominiosDTO.value){
+                    save(dominioDeMercado);
+                }
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

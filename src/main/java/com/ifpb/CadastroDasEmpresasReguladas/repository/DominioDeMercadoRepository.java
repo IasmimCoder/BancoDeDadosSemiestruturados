@@ -7,5 +7,5 @@ import com.ifpb.CadastroDasEmpresasReguladas.model.DominioDeMercado;
 
 @Repository
 public interface DominioDeMercadoRepository extends JpaRepository<DominioDeMercado, Integer>{
-
+    long count();
 }

@@ -1,10 +1,8 @@
 package com.ifpb.CadastroDasEmpresasReguladas.mapper;
 
+import com.ifpb.CadastroDasEmpresasReguladas.DTO.EmpresaDTO;
 import com.ifpb.CadastroDasEmpresasReguladas.model.*;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Component
 public class EmpresaMapper {
