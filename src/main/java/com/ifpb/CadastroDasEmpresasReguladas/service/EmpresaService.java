@@ -1,10 +1,20 @@
 package com.ifpb.CadastroDasEmpresasReguladas.service;
 
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ifpb.CadastroDasEmpresasReguladas.DTO.EmpresaDTO;
+import com.ifpb.CadastroDasEmpresasReguladas.DTO.ListaEmpresasDTO;
 import com.ifpb.CadastroDasEmpresasReguladas.mapper.EmpresaMapper;
 import com.ifpb.CadastroDasEmpresasReguladas.model.*;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ifpb.CadastroDasEmpresasReguladas.exceptions.NotFoundException;
@@ -76,5 +86,29 @@ public class EmpresaService {
             throw new NotFoundException("Nenhuma empresa cadastrada com esse código de mercado!");
         }
         return empresas;
+    }
+
+    @PostConstruct
+    public void getGovToTableEmpresa() throws IOException, InterruptedException {
+
+        if (empresaRepository.count()==0) {
+
+            try {
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create("https://dados.susep.gov.br/olinda/servico/empresas/versao/v1/odata/DadosCadastrais?$format=json")).build();
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+                ObjectMapper mapper = new ObjectMapper();
+                ListaEmpresasDTO listaEmpresasDTO = mapper.readValue(response.body(), ListaEmpresasDTO.class);
+
+                for(EmpresaDTO empresaDTO: listaEmpresasDTO.value){
+                    save(empresaDTO);
+                }
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

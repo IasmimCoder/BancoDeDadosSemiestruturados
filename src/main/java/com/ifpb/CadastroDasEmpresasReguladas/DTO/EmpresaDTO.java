@@ -1,6 +1,4 @@
-package com.ifpb.CadastroDasEmpresasReguladas.model;
-
-import java.time.LocalDateTime;
+package com.ifpb.CadastroDasEmpresasReguladas.DTO;
 
 public class EmpresaDTO {
 
